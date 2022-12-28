@@ -1,94 +1,36 @@
 #include<stdio.h>
-#include<stdlib.h>
-//creating a linked list
-struct node{
-    int data;
-    struct node *next;
-};
-//traversing the linked list
-void linkedlistTraversal(struct node* ptr)
-{
-    while (ptr!=NULL)
-    {
-       printf("Element is %d\n",ptr->data);
-        ptr = ptr->next; 
-    }
-    
-   
-}
-//deletion of first node
-struct node *Deletefirst(struct node *head)
-{
-    struct node *ptr=head;
-    head=head->next;
-    free(ptr);
-    return head;
-}
-//deletion from between
-struct node *Deletebetween(struct node *head,int index)
-{
-    
-    struct node *p=head;
-    struct node *q=head->next;
-    for (int  i = 0; i <index-1; i++)
-    {
-        p=p->next;
-        q=q->next;
-    }
-    p->next=q->next;
-    free(q);
-    return head;
 
+//Traversal of array
+void display(int arr[],int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        printf("%d\n",arr[i]);
+    }
 }
-//delete at last
-struct node *DeleteLast(struct node *head)
+    void deletion(int arr[],int index,int size)
 {
     
-    struct node *p=head;
-    struct node *q=head->next;
-    while(q->next!=NULL)
-    {
-        p=p->next;
-        q=q->next;
-    }
-    p->next=NULL;
-    free(q);
-    return head;
-
+     for (int i = index; i<size-1; i++)
+     {
+        arr[i]=arr[i+1];// 2->3
+     }
+       
 }
 
 int main()
 {
-    struct node *head;
-    struct node *second;
-    struct node *third;
+  int arr[100]={2,3,6,34,5};
 
-    //dynamic allocation for nodes in heap
-    head=(struct node*)malloc((sizeof(struct node)));
-    second=(struct node*)malloc((sizeof(struct node)));
-    third=(struct node*)malloc((sizeof(struct node)));
+  int index=0,size=5;
+  printf("Array before deletion \n");
+  display(arr,5);
+    deletion(arr,index, size);
+    printf("Array after deletion \n");
+    size-=1;
+    display(arr,4);
+  
+  
 
-    //now nodes will point towards each other
-    head->data=12;
-    head->next=second;
-
-    second->data=16;
-    second->next=third;
-
-    third->data=24;
-    third->next=NULL;
-
-    printf("Linked list before deletion\n");
-    linkedlistTraversal(head);
-    // head=Deletefirst(head);
-    head=Deletebetween(head,2);
-     //head=DeleteLast(head);
-    
-    printf("Linked list after deletion\n");
-    linkedlistTraversal(head);
-
-    return  0;
-
-
-
+  return 0;  
 }
